@@ -14,4 +14,9 @@ public class ServiceService {
         return serviceRepo.findAll();
     }
 
+    // we need to rethink of error handling
+    public Service getServiceById(Integer id){
+        return serviceRepo.findById(id).orElseThrow(()->new RuntimeException("Service not found with id: "+id));
+    }
+
 }

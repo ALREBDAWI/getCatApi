@@ -1,7 +1,6 @@
 package com.getcat.api.controller;
 
 import com.getcat.api.model.Animal;
-import com.getcat.api.repo.AnimalRepo;
 import com.getcat.api.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +26,6 @@ public class AnimalController {
 
     @PostMapping
     public Animal CreateAnimal(@RequestBody Animal animal){
-        return animalService.saveAnimal(animal);
+        return animalService.createAnimal(animal);
     }
 }

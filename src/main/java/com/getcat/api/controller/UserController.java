@@ -2,6 +2,7 @@ package com.getcat.api.controller;
 
 import com.getcat.api.model.User;
 import com.getcat.api.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    private UserService userService;
+
+    private final UserService userService;
 
     @GetMapping
     public List<User> getAll(){
@@ -26,6 +28,24 @@ public class UserController {
 
     @PostMapping
     public User createUser(@RequestBody User user){
-        return userService.saveUser(user);
+        return userService.createUser(user);
+    }
+
+    @PutMapping("/{id}")
+    public User updateUser(
+            @PathVariable Integer id,
+            @RequestBody User user
+    ){
+        return userService.updateUser(id, user);
+    }
+
+    @DeleteMapping("/{id}")
+    public void softDeleteUser(@PathVariable Integer id){
+        userService.softDeleteUser(id);
+    }
+
+    @DeleteMapping("/{id}/hard")
+    public void hardDeleteUser(@PathVariable Integer id){
+        userService.hardDeleteUser(id);
     }
 }

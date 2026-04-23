@@ -79,7 +79,26 @@ CREATE TABLE posts(
     ON DELETE SET NULL
 );
 
-CREATE TYPE status_type AS ENUM ('pending', 'confirmed', 'cancelled');
+CREATE TABLE comments(
+    comment_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    user_id INT,
+    post_id INT,
+
+    CONSTRAINT fk_comments_user
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    ON DELETE SET NULL,
+
+    CONSTRAINT fk_comments_post
+    FOREIGN KEY(post_id) REFERENCES posts(post_id)
+    ON DELETE SET NULL
+);
+
+CREATE TYPE status_type AS ENUM (
+    'pending', 'confirmed', 'cancelled'
+);
 
 CREATE TABLE bookings(
    booking_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -102,3 +121,5 @@ CREATE TABLE bookings(
    CONSTRAINT unique_user_post
    UNIQUE (user_id, post_id)     
 );
+
+
