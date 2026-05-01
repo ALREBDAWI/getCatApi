@@ -2,9 +2,9 @@ package com.getcat.api.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -12,16 +12,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(
-        name = "bookings",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "unique_user_post", columnNames = {"user_id", "post_id"})
-        }
+        name = "bookings"
         )
 
 public class Booking {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "booking_id")
     private Integer bookingId;
 
