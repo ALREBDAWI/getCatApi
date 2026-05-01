@@ -39,7 +39,7 @@ public class AuthenticationService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(),request.getMdp())
+                new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword())
         );
         var user = userRepo.findByEmail(request.getEmail()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
