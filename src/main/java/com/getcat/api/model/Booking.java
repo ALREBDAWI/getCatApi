@@ -27,7 +27,7 @@ public class Booking {
     private LocalDateTime bookingDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "booking_status", columnDefinition = "status_type default 'pending'")
+    @Column(name = "booking_status")
     private BookingStatus bookingStatus = BookingStatus.pending; // default value
 
     @ManyToOne(fetch = FetchType.LAZY)

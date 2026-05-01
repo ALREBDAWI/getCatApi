@@ -31,10 +31,6 @@ public class BookingService {
         User user = userRepo.findById(userId).orElseThrow(()-> new RuntimeException("user not found with id "+userId));
         Post post = postRepo.findById(postId).orElseThrow(()-> new RuntimeException("post not found with id "+postId));
 
-        // we check that this booking does not exist already
-        bookingRepo.findByUserAndPost(user, post).ifPresent(booking -> {
-           throw  new RuntimeException("booking already exists");
-        });
 
         Booking booking = new Booking();
         booking.setUser(user);
