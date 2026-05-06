@@ -2,6 +2,7 @@ package com.getcat.api.controller;
 
 import com.getcat.api.model.Role;
 import com.getcat.api.service.RoleService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,8 +11,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/roles")
+@RequiredArgsConstructor
 public class RoleController {
-    @Autowired
     private RoleService roleService;
 
     @GetMapping

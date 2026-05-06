@@ -2,6 +2,7 @@ package com.getcat.api.controller;
 
 import com.getcat.api.model.Address;
 import com.getcat.api.service.AddressService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,8 +11,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/addresses")
+@RequiredArgsConstructor
 public class AddressController {
-    @Autowired
     private AddressService addressService;
 
     @GetMapping
