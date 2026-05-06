@@ -2,13 +2,13 @@ package com.getcat.api.service;
 
 import com.getcat.api.model.Service;
 import com.getcat.api.repo.ServiceRepo;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @org.springframework.stereotype.Service
-@RequiredArgsConstructor
 public class ServiceService {
+    @Autowired
     private ServiceRepo serviceRepo;
 
     public List<Service> getAllServices(){

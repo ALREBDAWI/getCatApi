@@ -19,6 +19,10 @@ public class AnimalService {
     public Animal getAnimalById(Integer id){
         return animalRepo.findById(id).orElseThrow(()->new RuntimeException("Animal not found with id: "+id));
     }
+
+    public Animal createAnimal(Animal animal) {
+        return null;
+    }
     // we deleted create and delete animals because animals should be fixed in db
     //enum could be used here, but it will not give us flexibility we need to deploy every time we add a new one
 }

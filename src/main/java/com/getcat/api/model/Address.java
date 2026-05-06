@@ -3,8 +3,8 @@ package com.getcat.api.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter
-@Setter
+@Data // doing the work of getters and setters
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -12,7 +12,7 @@ import lombok.*;
 public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "address_id")
     private Integer addressId;
 
