@@ -12,9 +12,9 @@ import lombok.*;
 public class Service {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "service_id")
-    private String serviceId;
+    private Integer serviceId;
 
     @Column(name = "service_type", length = 50, unique = true, nullable = false)
     private String serviceType;

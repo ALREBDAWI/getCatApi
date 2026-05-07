@@ -12,7 +12,7 @@ import lombok.*;
 public class Animal {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "animal_id")
     private Integer animalId;
 

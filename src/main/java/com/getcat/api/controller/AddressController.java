@@ -13,7 +13,8 @@ import java.util.List;
 @RequestMapping("/api/v1/addresses")
 @RequiredArgsConstructor
 public class AddressController {
-    private AddressService addressService;
+    // final is essential for lombok to construct and inject the service
+    private final AddressService addressService;
 
     @GetMapping
     public List<Address> getAll() {

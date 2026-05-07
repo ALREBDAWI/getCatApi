@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api/services")
 @RequiredArgsConstructor
 public class ServiceController {
-    public ServiceService serviceService;
+    private final ServiceService serviceService;
 
     @GetMapping
     public List<Service> getAllServices(){

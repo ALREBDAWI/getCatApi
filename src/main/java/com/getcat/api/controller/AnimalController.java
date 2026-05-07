@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/api/animals")
 @RequiredArgsConstructor
 public class AnimalController {
-    private AnimalService animalService;
+    private final AnimalService animalService;
 
     @GetMapping
     public List<Animal> getAll(){

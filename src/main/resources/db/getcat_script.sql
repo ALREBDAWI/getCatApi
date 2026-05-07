@@ -122,4 +122,7 @@ CREATE TABLE bookings(
    UNIQUE (user_id, post_id)     
 );
 
+INSERT INTO roles (role_label) VALUES ('USER') ON CONFLICT DO NOTHING;
+INSERT INTO roles (role_label) VALUES ('ADMIN') ON CONFLICT DO NOTHING;
+
 
