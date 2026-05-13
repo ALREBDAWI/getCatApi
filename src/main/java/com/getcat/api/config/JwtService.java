@@ -1,5 +1,7 @@
 package com.getcat.api.config;
 
+import com.getcat.api.service.UserService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -15,7 +17,9 @@ import java.util.Map;
 import java.util.function.Function;
 @Service
 public class JwtService {
-    private static final String SECRET_KEY = "70337336763979244226452948404D635166546A576E5A7134743777217A2543";
+    // this key will be hidden in .env
+    @Value("${SECRET_KEY}")
+    private String secretKey;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -63,7 +67,17 @@ public class JwtService {
     }
 
     private Key getSignInKey(){
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public String refreshToken(String oldToken){
+        // extract data from old token
+        final Claims claims = extractAllClaims(oldToken);
+        return Jwts.builder().setClaims(claims)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24 ))
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .compact();
     }
 }

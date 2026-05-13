@@ -1,12 +1,11 @@
 package com.getcat.api.auth;
 
 
+import com.getcat.api.config.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/auth")
@@ -14,15 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
 
-    private final AuthenticationService Authservice;
+    private final AuthenticationService authService;
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request){
-        return ResponseEntity.ok(Authservice.register(request));
+        return ResponseEntity.ok(authService.register(request));
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody AuthenticationRequest request){
-        return ResponseEntity.ok(Authservice.authenticate(request));
+        return ResponseEntity.ok(authService.authenticate(request));
     }
-
 }

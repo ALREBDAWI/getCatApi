@@ -4,7 +4,9 @@ import com.getcat.api.dto.AddressResponseDTO;
 import com.getcat.api.dto.UserRequestDTO;
 import com.getcat.api.dto.UserResponseDTO;
 import com.getcat.api.model.Address;
+import com.getcat.api.model.Role;
 import com.getcat.api.model.User;
+import com.getcat.api.repo.RoleRepo;
 import com.getcat.api.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepo userRepo;
+    private final RoleRepo roleRepo;
 
     // a method to transform the user object into user dto
     private UserResponseDTO mapToResponseDTO(User user){
@@ -114,6 +117,7 @@ public class UserService {
         return userRepo.findById(id).orElseThrow(()->new RuntimeException("user not found with id "+id));
     }
 
+
     public void softDeleteUser(Integer id){
             // to prevent unnecessary operations
         User user = findUserById(id);
@@ -121,8 +125,14 @@ public class UserService {
             throw new RuntimeException("User already deleted");
         }
 
+        if(user.getRole().getRoleLabel().equals("ADMIN")){
+            throw  new RuntimeException("you cant delete admins");
+        }
+
+        System.out.println(user.getIsDeleted());
         user.setIsDeleted(true);
         userRepo.save(user);
+        System.out.println(user.getIsDeleted());
     }
 
     public void hardDeleteUser(Integer id){

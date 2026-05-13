@@ -25,11 +25,11 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("api/v1/auth/**")
+                        .requestMatchers("/api/v1/auth/**", "/api/test/**", "/me/**")
                         .permitAll()
-                        // ,e path is just for testing and to be deleted later
-                        .requestMatchers("/me/**").permitAll()
+                        .requestMatchers("/api/users/admin/**").hasRole("ADMIN")
                         // ant other request needs auth
+                        //::::::::::::: remember to  solve all users fetch problem :::::::::::::::::::
                         .anyRequest()
                         .authenticated()
                 )

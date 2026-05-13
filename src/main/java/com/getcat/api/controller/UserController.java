@@ -44,7 +44,7 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUser(id, request)) ;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     public ResponseEntity<Void> softDeleteUser(@PathVariable Integer id){
         userService.softDeleteUser(id);
         return ResponseEntity.noContent().build(); // status 204

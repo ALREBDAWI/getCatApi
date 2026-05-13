@@ -25,9 +25,9 @@ public class AuthenticationService {
 
     // RegisterRequest is a dto class that makes the user send name, email, and password
     public AuthenticationResponse register(RegisterRequest request) {
-        // i used the enum to make sure that USER is written like db, but we can delete enum from project for more flexibility
+        // I used the enum to make sure that USER is written like DB, but we can delete enum from project for more flexibility
         var userRole = roleRepo.findByRoleLabel(RoleEnum.USER.name())
-                .orElseThrow(() -> new RuntimeException("Error: Role 'USER' not found in database."));
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found in database."));
         // here we build a user object from the attributes given in RegisterRequest
         var user = User.builder()
                 .isBlocked(false)
@@ -41,10 +41,9 @@ public class AuthenticationService {
                 // we have an enum for roles, either client or admin
                 .role(userRole)
                 .build();
-        System.out.println("BEFORE SAVE");
         // save the new user in database
         userRepo.save(user);
-        System.out.println("AFTER SAVE");
+        System.out.println("new user added to DB");
 
         // token will be generated using JWT and the user will be authenticated after registration
         var jwtToken = jwtService.generateToken(user);
@@ -59,6 +58,7 @@ public class AuthenticationService {
                 new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword())
         );
         var user = userRepo.findByEmail(request.getEmail()).orElseThrow();
+        // we can change data type later
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
